@@ -677,12 +677,7 @@ PrefabInstance:
     - target: {fileID: 1359545057861466567, guid: 97691a4ec9370b048b98b8b44ea267d9,
         type: 3}
       propertyPath: m_fontSize
-      value: 0.76
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359545057861466567, guid: 97691a4ec9370b048b98b8b44ea267d9,
-        type: 3}
-      propertyPath: m_fontSizeMax
-      value: 0.76
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2082345154485799699, guid: 97691a4ec9370b048b98b8b44ea267d9,
         type: 3}
@@ -1926,6 +1921,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RaceStartButton
       objectReference: {fileID: 0}
+    - target: {fileID: 8063321337552072862, guid: de939a6d35f8c7747b83e9586a1275fb,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de939a6d35f8c7747b83e9586a1275fb, type: 3}
 --- !u!4 &323059875 stripped
@@ -1946,7 +1946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78322ef9f365910488f07e62d2371c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &429353924
+--- !u!1 &329524095
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1954,61 +1954,30 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 429353925}
+  - component: {fileID: 329524096}
   m_Layer: 0
-  m_Name: CLIMBING ZONE
+  m_Name: LOBBY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &429353925
+--- !u!4 &329524096
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 429353924}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18, y: -5, z: 5}
+  m_GameObject: {fileID: 329524095}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.50281, y: 3.3405228, z: 5.347792}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1992204599}
-  - {fileID: 2129870563}
-  m_Father: {fileID: 2114566688}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &631573946
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 631573947}
-  m_Layer: 0
-  m_Name: OBSTACLE RACE
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &631573947
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 631573946}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18, y: -5, z: 5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
+  - {fileID: 1460398629}
   - {fileID: 1011493830}
-  - {fileID: 1202830099}
-  m_Father: {fileID: 2114566688}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -2206,12 +2175,7 @@ PrefabInstance:
     - target: {fileID: 1359545057861466567, guid: 97691a4ec9370b048b98b8b44ea267d9,
         type: 3}
       propertyPath: m_fontSize
-      value: 0.76
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359545057861466567, guid: 97691a4ec9370b048b98b8b44ea267d9,
-        type: 3}
-      propertyPath: m_fontSizeMax
-      value: 0.76
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2082345154485799699, guid: 97691a4ec9370b048b98b8b44ea267d9,
         type: 3}
@@ -3696,7 +3660,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &831954049
 GameObject:
@@ -4317,7 +4281,7 @@ GameObject:
   - component: {fileID: 1011493827}
   - component: {fileID: 1011493826}
   m_Layer: 0
-  m_Name: OR Lobby
+  m_Name: ObstacleRaceLobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6648,13 +6612,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1011493825}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 24, y: -1, z: 0}
+  m_LocalPosition: {x: 6.4971905, y: -4.340523, z: -5.347792}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 716970769}
   - {fileID: 1093224134}
-  m_Father: {fileID: 631573947}
-  m_RootOrder: 0
+  m_Father: {fileID: 329524096}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1035160136
 GameObject:
@@ -7549,7 +7513,7 @@ GameObject:
   - component: {fileID: 1202830096}
   - component: {fileID: 1202830095}
   m_Layer: 0
-  m_Name: OR Area
+  m_Name: OBSTACLE RACE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9527,40 +9491,8 @@ Transform:
   m_Children:
   - {fileID: 735457361}
   - {fileID: 323059875}
-  m_Father: {fileID: 631573947}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1208269895
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1208269896}
-  m_Layer: 0
-  m_Name: SHOOTING RANGE
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1208269896
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1208269895}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18, y: -5, z: 5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1460398629}
-  - {fileID: 1415272675}
-  m_Father: {fileID: 2114566688}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1286127711
 Mesh:
@@ -9740,7 +9672,7 @@ GameObject:
   - component: {fileID: 1415272672}
   - component: {fileID: 1415272671}
   m_Layer: 0
-  m_Name: SR Area
+  m_Name: SHOOTING RANGE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12078,8 +12010,8 @@ Transform:
   m_Children:
   - {fileID: 151130186031236936}
   - {fileID: 923850620}
-  m_Father: {fileID: 1208269896}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1460398624
 GameObject:
@@ -12095,7 +12027,7 @@ GameObject:
   - component: {fileID: 1460398626}
   - component: {fileID: 1460398625}
   m_Layer: 0
-  m_Name: SR Lobby
+  m_Name: ShootingLobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14308,13 +14240,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460398624}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12, y: -1, z: 0}
+  m_LocalPosition: {x: -5.5028095, y: -4.340523, z: -5.347792}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 127983327}
   - {fileID: 320996679}
-  m_Father: {fileID: 1208269896}
-  m_RootOrder: 0
+  m_Father: {fileID: 329524096}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1473705894
 GameObject:
@@ -14951,6 +14883,13 @@ MonoBehaviour:
   currentPoints: 0
   XR_startButton: {fileID: 923850621}
   scoreboard: {fileID: 151130186031236937}
+  maxLives: 0
+  playerWeapon: {fileID: 0}
+  enemyPrefab: {fileID: 0}
+  enemySpawnFrequency: 0
+  friendPrefab: {fileID: 0}
+  friendSpawnFrequency: 0
+  currentLives: 0
 --- !u!43 &1940330946
 Mesh:
   m_ObjectHideFlags: 0
@@ -15323,7 +15262,7 @@ GameObject:
   - component: {fileID: 1992204596}
   - component: {fileID: 1992204595}
   m_Layer: 0
-  m_Name: CZ Lobby
+  m_Name: ClimbingLobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17476,12 +17415,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992204594}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: -17.50281, y: -4.340523, z: -5.347792}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 764908372}
   - {fileID: 981646852}
-  m_Father: {fileID: 429353925}
+  m_Father: {fileID: 329524096}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &2001355901
@@ -17648,39 +17587,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &2114566687
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2114566688}
-  m_Layer: 0
-  m_Name: CHALLENGES
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2114566688
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2114566687}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18, y: 5, z: -5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 429353925}
-  - {fileID: 1208269896}
-  - {fileID: 631573947}
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2129870558
 GameObject:
   m_ObjectHideFlags: 0
@@ -17695,7 +17601,7 @@ GameObject:
   - component: {fileID: 2129870560}
   - component: {fileID: 2129870559}
   m_Layer: 0
-  m_Name: CZ Area
+  m_Name: CLIMBING ZONE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19613,8 +19519,8 @@ Transform:
   m_Children:
   - {fileID: 90670132}
   - {fileID: 4647996719988918858}
-  m_Father: {fileID: 429353925}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &151130186031236935
 PrefabInstance:
@@ -19634,12 +19540,7 @@ PrefabInstance:
     - target: {fileID: 1359545057861466567, guid: 97691a4ec9370b048b98b8b44ea267d9,
         type: 3}
       propertyPath: m_fontSize
-      value: 0.76
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359545057861466567, guid: 97691a4ec9370b048b98b8b44ea267d9,
-        type: 3}
-      propertyPath: m_fontSizeMax
-      value: 0.76
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2082345154485799699, guid: 97691a4ec9370b048b98b8b44ea267d9,
         type: 3}
@@ -19665,26 +19566,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -15.1481
-      objectReference: {fileID: 0}
-    - target: {fileID: 7802676417965970959, guid: 97691a4ec9370b048b98b8b44ea267d9,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.70710653
-      objectReference: {fileID: 0}
-    - target: {fileID: 7802676417965970959, guid: 97691a4ec9370b048b98b8b44ea267d9,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7802676417965970959, guid: 97691a4ec9370b048b98b8b44ea267d9,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7802676417965970959, guid: 97691a4ec9370b048b98b8b44ea267d9,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.70710707
       objectReference: {fileID: 0}
     - target: {fileID: 7802676417965970959, guid: 97691a4ec9370b048b98b8b44ea267d9,
         type: 3}

@@ -1,17 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider), typeof(Rigidbody))]
 public class XRButtonInteractable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField] private GameObject button;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] bool isPressed = false;
+    
+    private void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!isPressed)
+        {
+            if (audioSource)
+                audioSource.Play();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
     {
         
     }
