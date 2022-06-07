@@ -31,14 +31,12 @@ public class ChallengeManager : Singleton<ChallengeManager>
     [SerializeField] protected PlayerScore currentScore;
     [Tooltip("It stores every score that was previously obtained for the current challenge.")]
     [SerializeField] protected ScoreList playerScoreList;
-
     private void AddScoreToList(PlayerScore score)
     {
         playerScoreList.scoreList.Add(score);
         OnValueChanged_ScoreList();
     }
-    
-    
+
     [Header("Challenge")]
     [Tooltip("Displays the current status of the challenge: Waiting, Started or Completed.")]
     [SerializeField] protected ChallengeStatusEnum challengeStatus;
@@ -73,6 +71,7 @@ public class ChallengeManager : Singleton<ChallengeManager>
         currentTime = .0f;
         
         ReadScoresFromFile();
+        ShowScoreboard();
     }
     
     #endregion
@@ -82,16 +81,6 @@ public class ChallengeManager : Singleton<ChallengeManager>
     protected virtual void StartChallenge()
     {
         
-    }
-
-    protected virtual void EndChallenge()
-    {
-        currentScore.points = currentPoints;
-        currentScore.time = currentTime;
-        
-        
-        
-        WriteScoreOnFile();
     }
    
     public void ScorePoints(int points)
@@ -109,7 +98,15 @@ public class ChallengeManager : Singleton<ChallengeManager>
             currentTime++;
         }
     }
-
+    
+    protected virtual void EndChallenge()
+    {
+        currentScore.points = currentPoints;
+        currentScore.time = currentTime;
+        
+        WriteScoreOnFile();
+    }
+    
     private void ShowScoreboard()
     {
         if (playerScoreList == null)
@@ -118,10 +115,10 @@ public class ChallengeManager : Singleton<ChallengeManager>
             return;
         }
 
-        scoreboard.text += "<pos=0%><b>Player</b></pos><pos=25%><b>Points</b></pos><pos=50%><b>Time<b></pos>\n";
+        scoreboard.text += "<pos=0%><b>Player</b></pos><pos=50%><b>Points</b></pos><pos=75%><b>Time<b></pos>\n\n";
         foreach (var score in playerScoreList.scoreList)
         {
-            scoreboard.text += $"<pos=0%>{score.player}</pos><pos=25%>{score.points}</pos><pos=50%>{score.time}</pos>\n";
+            scoreboard.text += $"<pos=0%>{score.player}</pos><pos=50%>{score.points}</pos><pos=75%>{score.time}</pos>\n";
         }
     }
     
@@ -135,7 +132,7 @@ public class ChallengeManager : Singleton<ChallengeManager>
     {
         try
         {
-            var json = System.IO.File.ReadAllText(Application.persistentDataPath + file);
+            var json = System.IO.File.ReadAllText($"{Application.persistentDataPath}\\{file}");
             playerScoreList = JsonUtility.FromJson<ScoreList>(json);
         }
         catch (Exception e)
@@ -148,7 +145,7 @@ public class ChallengeManager : Singleton<ChallengeManager>
     {
         try
         {
-            System.IO.File.WriteAllText(Application.persistentDataPath + file, JsonUtility.ToJson(playerScoreList));
+            System.IO.File.WriteAllText($"{Application.persistentDataPath}\\{file}", JsonUtility.ToJson(playerScoreList));
         }
         catch (Exception e)
         {
@@ -158,7 +155,6 @@ public class ChallengeManager : Singleton<ChallengeManager>
     }
     
     #endregion
-    
     
     #region Callbacks
 
