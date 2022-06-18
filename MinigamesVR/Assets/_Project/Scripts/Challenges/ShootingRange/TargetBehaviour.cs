@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class Target : MonoBehaviour
+public class TargetBehaviour : MonoBehaviour
 {
     private Vector3 _originalScale;
     
@@ -35,11 +35,12 @@ public class Target : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             ShootingRangeChallenge.Instance.ScorePoints(scorePoints);
             StopCoroutine(DespawnRoutine());
             Destroy(gameObject);
+            Destroy(collision.gameObject);
         }
     }
 }

@@ -168,10 +168,20 @@ PrefabInstance:
     - target: {fileID: 6524320902155111116, guid: eade2127e3bd82e4da646d53daaf3a79,
         type: 3}
       propertyPath: m_text
-      value: "<style=\"Title>Shooting Range</style>\n\n<align=\"left\"><b>Goal:</b>
-        Destroy the targets\n<align=\"left\"><b>Time limit:</b> 1 min \n\n<align=\"center><size=75%><i>Reload
-        the pistol by changing the magazine</i></size>\n\n<align=\"center><b>Press
-        the button to start the challenge</b>"
+      value: '<style="Title>Challenge Name</style>
+
+
+        <align="left"><b>Goal:</b>
+        Goal description
+
+        <align="left"><b>Time limit:</b> Time
+
+
+        <align="center><size=75%><i>hint</i></size>
+
+
+        <align="center><b>Press
+        the button to start the challenge</b>'
       objectReference: {fileID: 0}
     - target: {fileID: 6524320902155111116, guid: eade2127e3bd82e4da646d53daaf3a79,
         type: 3}

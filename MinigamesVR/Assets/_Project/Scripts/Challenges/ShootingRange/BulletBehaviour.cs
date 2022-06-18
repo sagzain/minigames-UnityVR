@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shot : MonoBehaviour
+public class BulletBehaviour : MonoBehaviour
 {
     [Range(0f,50f)]
     [SerializeField] protected int _speed;
@@ -30,7 +30,5 @@ public class Shot : MonoBehaviour
     {
         // TODO 
         // Instantiate vfx & sfx
-        StopCoroutine(DespawnAfterTime());
-        Destroy(gameObject);
     }
 }
