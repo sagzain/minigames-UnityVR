@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
 
         try { _currentMagazine = ammoSocket.firstInteractableSelected.transform.GetComponent<Magazine>(); }
-        catch { Debug.LogError($"[{gameObject.name}] Socket has no magazine."); }
+        catch { Debug.Log($"[{gameObject.name}] Socket has no magazine."); }
         
         ammoSocket.selectEntered.AddListener(OnSelectEnter_SocketInteractor);
         ammoSocket.selectExited.AddListener(OnSelectExit_SocketInteractor);

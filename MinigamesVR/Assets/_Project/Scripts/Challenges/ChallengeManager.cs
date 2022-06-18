@@ -18,7 +18,7 @@ using UnityEngine;
 //         // endButton.OnButtonPressed.AddListener(ChallengeManager.Instance.OnPressedButton_EndChallenge());
 //     }
 // }
-public class ChallengeManager : Singleton<ChallengeManager>
+public class ChallengeManager : MonoBehaviour
 {
     #region Vars
     
@@ -53,6 +53,9 @@ public class ChallengeManager : Singleton<ChallengeManager>
     [SerializeField] protected float currentTime;
     [SerializeField] private int currentPoints;
 
+    [SerializeField] private TMP_Text displayTimer;
+    [SerializeField] private TMP_Text displayPoints;
+    
     // [SerializeField] private XRChallengeButtons XR_ChallengeButtons;
     [SerializeField] private XRButtonInteractable XR_startButton;
     [SerializeField] private TextMeshProUGUI scoreboard;
@@ -61,7 +64,7 @@ public class ChallengeManager : Singleton<ChallengeManager>
     
     #region Unity
 
-    private void Start()
+    private void Awake()
     {
         currentScore.player = "DefaultPlayer";
         currentScore.points = 0;
@@ -69,6 +72,8 @@ public class ChallengeManager : Singleton<ChallengeManager>
 
         currentPoints = 0;
         currentTime = .0f;
+
+        displayPoints.text = "0 pts";
         
         ReadScoresFromFile();
         ShowScoreboard();
@@ -80,20 +85,23 @@ public class ChallengeManager : Singleton<ChallengeManager>
 
     protected virtual void StartChallenge()
     {
-        
+        StartCoroutine(TimerRoutine());
     }
    
     public void ScorePoints(int points)
     {
         currentPoints += points;
+        displayPoints.text = $"{currentPoints} pts";
     }
 
-    private IEnumerator TimerRoutine()
+    protected IEnumerator TimerRoutine()
     {
         currentTime = 0;
         
         while (challengeStatus == ChallengeStatusEnum.Started)
         {
+            string time = TimeSpan.FromSeconds(currentTime).ToString();
+            displayTimer.text = time.Substring(time.Length-5);
             yield return new WaitForSeconds(1);
             currentTime++;
         }
@@ -160,7 +168,6 @@ public class ChallengeManager : Singleton<ChallengeManager>
 
     public void OnPressedButton_StartChallenge()
     {
-        StartCoroutine(TimerRoutine());
         StartChallenge();
     }
     
