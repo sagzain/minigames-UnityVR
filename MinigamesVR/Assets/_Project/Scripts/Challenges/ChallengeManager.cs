@@ -13,11 +13,6 @@ public class ChallengeManager : MonoBehaviour
 
     private PlayerScore _currentScore = new PlayerScore();
     private ScoreList _playerScoreList = new ScoreList();
-    private void AddScoreToList(PlayerScore score)
-    {
-        _playerScoreList.scoreList.Add(score);
-        OnValueChanged_ScoreList();
-    }
 
     [Header("Challenge")]
     [Tooltip("Displays the current status of the challenge: Waiting, Started or Completed.")]
@@ -84,20 +79,27 @@ public class ChallengeManager : MonoBehaviour
             displayTimer.text = time.Substring(time.Length-5);
             yield return new WaitForSeconds(1);
             _currentTime--;
+            
+            if (_currentTime < 0)
+                EndChallenge();
         }
     }
     
     protected virtual void EndChallenge()
     {
+        challengeStatus = ChallengeStatusEnum.Completed;
+        
+        _currentTime = 0;
         _currentScore.points = _currentPoints;
         _currentScore.time = _currentTime;
         
+        AddScoreToList(_currentScore);
         WriteScoreOnFile();
     }
     
     private void ShowScoreboard()
     {
-        if (_playerScoreList == null)
+        if (_playerScoreList.scoreList.Count == 0)
         {
             scoreboard.text += "There are no previous player scores.";
             return;
@@ -110,6 +112,12 @@ public class ChallengeManager : MonoBehaviour
         }
     }
     
+    private void AddScoreToList(PlayerScore score)
+    {
+        _playerScoreList.scoreList.Add(score);
+        OnValueChanged_ScoreList();
+    }
+    
     #endregion
     
     #region IO
@@ -119,7 +127,9 @@ public class ChallengeManager : MonoBehaviour
         try
         {
             var json = System.IO.File.ReadAllText($"{Application.persistentDataPath}\\{file}");
-            _playerScoreList = JsonUtility.FromJson<ScoreList>(json);
+            _playerScoreList = JsonUtility.FromJson<ScoreList>(json) ?? new ScoreList();
+            
+            Debug.Log($"Lectura {_playerScoreList}, {_playerScoreList.scoreList}");
         }
         catch (Exception e)
         {
@@ -131,6 +141,7 @@ public class ChallengeManager : MonoBehaviour
     {
         try
         {
+            Debug.Log("Escribiendo");
             System.IO.File.WriteAllText($"{Application.persistentDataPath}\\{file}", JsonUtility.ToJson(_playerScoreList));
         }
         catch (Exception e)

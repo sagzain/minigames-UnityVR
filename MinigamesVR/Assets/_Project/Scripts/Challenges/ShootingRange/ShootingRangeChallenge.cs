@@ -48,7 +48,7 @@ public class ShootingRangeChallenge : ChallengeManager
 
     private void Start()
     {
-        xrStartButton.OnReleasedButton += StartChallenge;
+        xrStartButton.OnReleasedButton += StartChallenge; 
         // StartChallenge();
     }
     
@@ -77,5 +77,10 @@ public class ShootingRangeChallenge : ChallengeManager
             var go = Instantiate(targetPrefab, spawnPoint);
             go.transform.localPosition = pos;
         }
+    }
+
+    protected override void EndChallenge()
+    {
+        base.EndChallenge();
     }
 }
