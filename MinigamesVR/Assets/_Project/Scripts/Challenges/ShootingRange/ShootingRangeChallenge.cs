@@ -48,15 +48,16 @@ public class ShootingRangeChallenge : ChallengeManager
 
     private void Start()
     {
-        challengeStatus = ChallengeStatusEnum.Started;
-        StartChallenge();
+        xrStartButton.OnReleasedButton += StartChallenge;
+        // StartChallenge();
     }
     
     protected override void StartChallenge()
     {
-        // TODO 
-        // En este caso el tiempo va hacia atrás: toca override StartChallenge y TimerRoutine
+        if(challengeStatus == ChallengeStatusEnum.Started)
+            return;
         
+        challengeStatus = ChallengeStatusEnum.Started;
         base.StartChallenge();
         StartCoroutine(SpawnRoutine());
     }
@@ -67,11 +68,11 @@ public class ShootingRangeChallenge : ChallengeManager
         {
             yield return new WaitForSeconds(spawnFrequency);
             
-            int posX = Random.Range(spawnPosX.minValue, spawnPosX.maxValue);
-            int posY = Random.Range(spawnPosY.minValue, spawnPosY.maxValue);
-            int posZ = Random.Range(spawnPosZ.minValue, spawnPosZ.maxValue);
+            var posX = Random.Range(spawnPosX.minValue, spawnPosX.maxValue);
+            var posY = Random.Range(spawnPosY.minValue, spawnPosY.maxValue);
+            var posZ = Random.Range(spawnPosZ.minValue, spawnPosZ.maxValue);
 
-            Vector3 pos = new Vector3(posX, posY, posZ);
+            var pos = new Vector3(posX, posY, posZ);
 ;
             var go = Instantiate(targetPrefab, spawnPoint);
             go.transform.localPosition = pos;

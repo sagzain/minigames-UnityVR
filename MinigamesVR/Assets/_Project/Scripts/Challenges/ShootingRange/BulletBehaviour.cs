@@ -6,29 +6,37 @@ using UnityEngine;
 public class BulletBehaviour : MonoBehaviour
 {
     [Range(0f,50f)]
-    [SerializeField] protected int _speed;
+    [SerializeField] protected int speed;
     [Range(1, 20)]
-    [SerializeField] protected int _despawnTime;
+    [SerializeField] protected int destroyTime;
 
     private void Start()
     {
-        StartCoroutine(DespawnAfterTime());
+        StartCoroutine(DestroyAfterTime());
     }
 
     private void Update()
     {
-        transform.position += transform.forward * _speed * Time.deltaTime;
+        transform.position += speed * Time.deltaTime * transform.forward;
     }
 
-    private IEnumerator DespawnAfterTime()
+    private IEnumerator DestroyAfterTime()
     {
-        yield return new WaitForSeconds(_despawnTime);
+        yield return new WaitForSeconds(destroyTime);
         Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        var go = collision.collider.gameObject;
+
+        if (go.layer != 9)
+            return;
+        
+        Destroy(gameObject);
+        
         // TODO 
         // Instantiate vfx & sfx
+
     }
 }

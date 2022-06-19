@@ -34,12 +34,15 @@ public class ThrowingBallChallenge : ChallengeManager
 
     private void Start()
     {
-        challengeStatus = ChallengeStatusEnum.Started;
-        StartChallenge();
+        xrStartButton.OnReleasedButton += StartChallenge;
     }
 
     protected override void StartChallenge()
     {
+        if(challengeStatus == ChallengeStatusEnum.Started)
+            return;
+        
+        challengeStatus = ChallengeStatusEnum.Started;
         base.StartChallenge();
         SpawnBalls();
     }

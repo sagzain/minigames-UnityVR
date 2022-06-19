@@ -11,6 +11,7 @@ public class BasketController : MonoBehaviour
 
     private TMP_Text _displayScore;
     private AudioSource _audioSource;
+    
     private void Awake()
     {
         _displayScore = GetComponentInChildren<TMP_Text>();
@@ -23,15 +24,15 @@ public class BasketController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.CompareTag("Ball"))
-        {
-            if(sfxScore && _audioSource)
-                _audioSource.PlayOneShot(sfxScore);
+        if (!other.CompareTag("Ball"))
+            return;
+        
+        if (sfxScore && _audioSource)
+            _audioSource.PlayOneShot(sfxScore);
 
-            if (vfxScore)
-                Instantiate(vfxScore, transform);
+        if (vfxScore)
+            Instantiate(vfxScore, transform);
             
-            ThrowingBallChallenge.Instance.ScorePoints(score);
-        }
+        ThrowingBallChallenge.Instance.ScorePoints(score);
     }
 }

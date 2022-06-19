@@ -23,10 +23,10 @@ public class TargetBehaviour : MonoBehaviour
     private void OnEnable()
     {
         transform.DOScale(_originalScale, 1f).OnComplete(() => transform.localScale = _originalScale);
-        StartCoroutine(DespawnRoutine());
+        StartCoroutine(DestroyRoutine());
     }
 
-    private IEnumerator DespawnRoutine()
+    private IEnumerator DestroyRoutine()
     {
         yield return new WaitForSeconds(lifeSpanTime);
         yield return transform.DOScale(Vector3.zero, 1f).WaitForCompletion();
@@ -35,12 +35,14 @@ public class TargetBehaviour : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            ShootingRangeChallenge.Instance.ScorePoints(scorePoints);
-            StopCoroutine(DespawnRoutine());
-            Destroy(gameObject);
-            Destroy(collision.gameObject);
-        }
+        var go = collision.collider.gameObject;
+
+        if (go.layer != 7)
+            return;
+        
+        ShootingRangeChallenge.Instance.ScorePoints(scorePoints);
+        StopCoroutine(DestroyRoutine());
+        Destroy(gameObject);
+        
     }
 }

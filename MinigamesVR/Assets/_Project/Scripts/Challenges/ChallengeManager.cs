@@ -3,21 +3,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-// [Serializable]
-// public struct XRChallengeButtons
-// {
-//     public XRButtonInteractable startButton;
-//     public XRButtonInteractable endButton;
-//
-//     public void StartButtons()
-//     {
-//         // TODO 
-//         // Una vez implementado XRButtonInteractable, añadir los Callbacks a OnButtonPressed
-//             
-//         // startButton.OnButtonPressed.AddListener(ChallengeManager.Instance.OnPressedButton_StartChallenge());
-//         // endButton.OnButtonPressed.AddListener(ChallengeManager.Instance.OnPressedButton_EndChallenge());
-//     }
-// }
 public class ChallengeManager : MonoBehaviour
 {
     #region Vars
@@ -26,38 +11,30 @@ public class ChallengeManager : MonoBehaviour
     [Tooltip("Path to the file that stores the information about the Player's scores for a specific challenge.")]
     [SerializeField] protected string file;
 
-    [Header("Scores")]
-    [Tooltip("Score of player that stores its name, the points achieved and the time a challenge has taken to be completed.")]
-    [SerializeField] protected PlayerScore currentScore;
-    [Tooltip("It stores every score that was previously obtained for the current challenge.")]
-    [SerializeField] protected ScoreList playerScoreList;
+    private PlayerScore _currentScore = new PlayerScore();
+    private ScoreList _playerScoreList = new ScoreList();
     private void AddScoreToList(PlayerScore score)
     {
-        playerScoreList.scoreList.Add(score);
+        _playerScoreList.scoreList.Add(score);
         OnValueChanged_ScoreList();
     }
 
     [Header("Challenge")]
     [Tooltip("Displays the current status of the challenge: Waiting, Started or Completed.")]
     [SerializeField] protected ChallengeStatusEnum challengeStatus;
-    public ChallengeStatusEnum ChallengeStatus
-    {
-        get => challengeStatus;
-        set
-        {
-            challengeStatus = value;
-            OnValueChanged_ChallengeStatusEnum(value);
-        }
-    }
-    
-    [SerializeField] protected float currentTime;
-    [SerializeField] private int currentPoints;
 
-    [SerializeField] private TMP_Text displayTimer;
+    [Range(0, 120)]
+    [SerializeField] private int maxTime;
+    
+    private float _currentTime;
+    private int _currentPoints;
+
+    [SerializeField] private TMP_Text displayInfo;
+    [SerializeField] protected TMP_Text displayTimer;
     [SerializeField] private TMP_Text displayPoints;
     
     // [SerializeField] private XRChallengeButtons XR_ChallengeButtons;
-    [SerializeField] private XRButtonInteractable XR_startButton;
+    [SerializeField] protected XRButtonInteractable xrStartButton;
     [SerializeField] private TextMeshProUGUI scoreboard;
     
     #endregion
@@ -66,12 +43,12 @@ public class ChallengeManager : MonoBehaviour
 
     private void Awake()
     {
-        currentScore.player = "DefaultPlayer";
-        currentScore.points = 0;
-        currentScore.time   = .0f;
+        _currentScore.player = "DefaultPlayer";
+        _currentScore.points = 0;
+        _currentScore.time   = .0f;
 
-        currentPoints = 0;
-        currentTime = .0f;
+        _currentPoints = 0;
+        _currentTime = maxTime;
 
         displayPoints.text = "0 pts";
         
@@ -90,41 +67,44 @@ public class ChallengeManager : MonoBehaviour
    
     public void ScorePoints(int points)
     {
-        currentPoints += points;
-        displayPoints.text = $"{currentPoints} pts";
+        if (challengeStatus != ChallengeStatusEnum.Started)
+            return;
+        
+        _currentPoints += points;
+        displayPoints.text = $"{_currentPoints} pts";
     }
 
-    protected IEnumerator TimerRoutine()
+    private IEnumerator TimerRoutine()
     {
-        currentTime = 0;
+        _currentTime = maxTime;
         
         while (challengeStatus == ChallengeStatusEnum.Started)
         {
-            string time = TimeSpan.FromSeconds(currentTime).ToString();
+            string time = TimeSpan.FromSeconds(_currentTime).ToString();
             displayTimer.text = time.Substring(time.Length-5);
             yield return new WaitForSeconds(1);
-            currentTime++;
+            _currentTime--;
         }
     }
     
     protected virtual void EndChallenge()
     {
-        currentScore.points = currentPoints;
-        currentScore.time = currentTime;
+        _currentScore.points = _currentPoints;
+        _currentScore.time = _currentTime;
         
         WriteScoreOnFile();
     }
     
     private void ShowScoreboard()
     {
-        if (playerScoreList == null)
+        if (_playerScoreList == null)
         {
             scoreboard.text += "There are no previous player scores.";
             return;
         }
 
         scoreboard.text += "<pos=0%><b>Player</b></pos><pos=50%><b>Points</b></pos><pos=75%><b>Time<b></pos>\n\n";
-        foreach (var score in playerScoreList.scoreList)
+        foreach (var score in _playerScoreList.scoreList)
         {
             scoreboard.text += $"<pos=0%>{score.player}</pos><pos=50%>{score.points}</pos><pos=75%>{score.time}</pos>\n";
         }
@@ -134,14 +114,12 @@ public class ChallengeManager : MonoBehaviour
     
     #region IO
     
-    private 
-    
-    protected void ReadScoresFromFile()
+    private void ReadScoresFromFile()
     {
         try
         {
             var json = System.IO.File.ReadAllText($"{Application.persistentDataPath}\\{file}");
-            playerScoreList = JsonUtility.FromJson<ScoreList>(json);
+            _playerScoreList = JsonUtility.FromJson<ScoreList>(json);
         }
         catch (Exception e)
         {
@@ -149,11 +127,11 @@ public class ChallengeManager : MonoBehaviour
         }
     }
     
-    protected void WriteScoreOnFile()
+    private void WriteScoreOnFile()
     {
         try
         {
-            System.IO.File.WriteAllText($"{Application.persistentDataPath}\\{file}", JsonUtility.ToJson(playerScoreList));
+            System.IO.File.WriteAllText($"{Application.persistentDataPath}\\{file}", JsonUtility.ToJson(_playerScoreList));
         }
         catch (Exception e)
         {
@@ -165,33 +143,7 @@ public class ChallengeManager : MonoBehaviour
     #endregion
     
     #region Callbacks
-
-    public void OnPressedButton_StartChallenge()
-    {
-        StartChallenge();
-    }
     
-    public void OnPressedButton_EndChallenge()
-    {
-        EndChallenge();
-    }
-
-    private void OnValueChanged_ChallengeStatusEnum(ChallengeStatusEnum value)
-    {
-        switch (value)
-        {
-            case ChallengeStatusEnum.Waiting:
-                break;
-            case ChallengeStatusEnum.Started:
-                break;
-            case ChallengeStatusEnum.Completed:
-                break;
-            default:
-                Debug.LogError($"[{gameObject.name}] ChallengeStatusEnum '{value}'.");
-                break;
-        }
-    }
-
     private void OnValueChanged_ScoreList()
     {
         //TODO
@@ -199,16 +151,4 @@ public class ChallengeManager : MonoBehaviour
     }
     
     #endregion
-    
-    /*
-     * LA IDEA DE ESTE SCRIPT ES ALMACENAR TODOS LOS ELEMENTOS COMUNES ENTRE LOS CHALLENGES
-     * EN PRINCIPIO SERÍA:
-     *      - PUNTOS GANADOS POR EL JUGADOR
-     *      - TIEMPO QUE HA DURADO EL RETO
-     *      - FICHERO DE VOLCADO PARA LAS PUNTUACIONES DE LOS JUGADORES
-     *      - LECTURA/ESCRITURA SOBRE EL FICHERO
-     *      - MANEJAR EVENTOS DE INICIO Y FINAL DE JUEGO
-     *
-     *      - EL AUMENTO DE PUNTOS IRÍA EN LA CLASE HIJA ESPECÍFICA DE CADA CHALLENGE
-     */
 }

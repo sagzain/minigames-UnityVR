@@ -4,9 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Bullet
-  - Target
   - Ball
+  - Target
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -17,10 +17,10 @@ TagManager:
   - Player
   - Bullet
   - Weapon
-  - Enemy
+  - Target
   - Ammo
-  - 
-  - 
+  - Hand
+  - Button
   - 
   - 
   - 

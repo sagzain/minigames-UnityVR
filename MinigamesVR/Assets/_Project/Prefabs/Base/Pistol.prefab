@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8613723393532599162}
   - component: {fileID: 4356443807471318084}
   - component: {fileID: 8217030112451405640}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GunTriggerCover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 2912430922300575716}
   - component: {fileID: 6963788906563457183}
   - component: {fileID: 5109651171181116865}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GunTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 51493369551759467}
   - component: {fileID: 5700432565441465019}
   - component: {fileID: 8205962529850886538}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GunMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 4841277948173427877}
   - component: {fileID: 6296533083385021666}
   - component: {fileID: 6638516663028822765}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GunCylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4438416166841512541}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8033256884850465791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}

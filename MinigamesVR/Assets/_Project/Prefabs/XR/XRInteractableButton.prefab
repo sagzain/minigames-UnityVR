@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4113150594166074431}
   - component: {fileID: 1825340338662333208}
   - component: {fileID: 8063321337552072862}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638162329090387035}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.122, z: 0}
+  m_LocalPosition: {x: 0, y: 0.125, z: 0}
   m_LocalScale: {x: 0.48749998, y: 0.05, z: 0.48749998}
   m_Children: []
   m_Father: {fileID: 2895408202136835540}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 5324405719231725723}
   - component: {fileID: 439251402983207595}
   - component: {fileID: 638660244444506819}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,11 +185,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2895408202136835540}
-  - component: {fileID: 7884973722976740130}
-  - component: {fileID: 6149832234473586146}
-  - component: {fileID: 3535935313724762319}
-  - component: {fileID: 1343534282661870228}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: XRInteractableButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,28 +209,60 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7884973722976740130
-MonoBehaviour:
+--- !u!1 &7926247496949377530
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7296753847641841413}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4785990306042026000}
+  - component: {fileID: 7671327991397796964}
+  - component: {fileID: 5848699413328659563}
+  - component: {fileID: 3076096165046348738}
+  - component: {fileID: 802635463505484640}
+  m_Layer: 12
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4785990306042026000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926247496949377530}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.122, z: 0}
+  m_LocalScale: {x: 0.48749998, y: 0.05, z: 0.48749998}
+  m_Children: []
+  m_Father: {fileID: 2895408202136835540}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7671327991397796964
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926247496949377530}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78322ef9f365910488f07e62d2371c72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 0}
-  audioSource: {fileID: 0}
-  isPressed: 0
---- !u!54 &6149832234473586146
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.5, z: 1}
+  m_Center: {x: -0.017729621, y: 0.311023, z: -0.011829515}
+--- !u!54 &5848699413328659563
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7296753847641841413}
+  m_GameObject: {fileID: 7926247496949377530}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -244,31 +272,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &3535935313724762319
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7296753847641841413}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.1, z: 0.4}
-  m_Center: {x: 0, y: 0.125, z: 0}
---- !u!82 &1343534282661870228
+--- !u!82 &3076096165046348738
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7296753847641841413}
+  m_GameObject: {fileID: 7926247496949377530}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -353,47 +368,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &7926247496949377530
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4785990306042026000}
-  - component: {fileID: 7671327991397796964}
-  m_Layer: 0
-  m_Name: Collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &4785990306042026000
-Transform:
+--- !u!114 &802635463505484640
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7926247496949377530}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.122, z: 0}
-  m_LocalScale: {x: 0.48749998, y: 0.05, z: 0.48749998}
-  m_Children: []
-  m_Father: {fileID: 2895408202136835540}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7671327991397796964
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7926247496949377530}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 2, z: 0.8}
-  m_Center: {x: -0.017729616, y: 0.0000009685755, z: -0.0118295355}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78322ef9f365910488f07e62d2371c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 638162329090387035}
+  isPressed: 0
