@@ -57,7 +57,6 @@ public class ShootingRangeChallenge : ChallengeManager
     {
         _magazineBoxes = new List<GameObject>();
         xrStartButton.OnReleasedButton += StartChallenge; 
-        StartChallenge();
     }
     
     protected override void StartChallenge()

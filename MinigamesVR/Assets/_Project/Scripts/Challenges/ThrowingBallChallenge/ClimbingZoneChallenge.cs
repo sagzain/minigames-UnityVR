@@ -54,6 +54,9 @@ public class ClimbingZoneChallenge : ChallengeManager
 
     protected override void EndChallenge()
     {
+        if (challengeStatus != ChallengeStatusEnum.Started)
+            return;
+        
         base.EndChallenge();
         Player.Instance.MovePlayerTo(spawnPosition.position);
     }
@@ -65,7 +68,6 @@ public class ClimbingZoneChallenge : ChallengeManager
             watchTime.text = displayTimer.text;
             yield return new WaitForSeconds(1);
         }
-
     }
     
     private void SpawnClimbingRocks()

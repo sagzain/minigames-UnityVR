@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.IO;
 using TMPro;
 using UnityEngine;
 
@@ -97,11 +98,10 @@ public class ChallengeManager : MonoBehaviour
         DisplayTimeAndPoints(false);
         
         challengeStatus = ChallengeStatusEnum.Completed;
-        
-        _currentTime = 0;
+       
         _currentScore.points = _currentPoints;
         _currentScore.time = _currentTime;
-        
+
         AddScoreToList(_currentScore);
         WriteScoreOnFile();
         ReloadScoreboard();
@@ -125,7 +125,10 @@ public class ChallengeManager : MonoBehaviour
 
         foreach (var score in _playerScoreList.scoreList)
         {
-            scoreboard.text += $"<pos=0%>{score.player}</pos><pos=45%>{score.points}</pos><pos=75%>{score.time}</pos>\n";
+            string time = TimeSpan.FromSeconds(_currentScore.time).ToString();
+            string timeFormat = time.Substring(time.Length-5);
+            
+            scoreboard.text += $"<pos=0%>{score.player}</pos><pos=45%>{score.points}</pos><pos=75%>{timeFormat}</pos>\n";
         }
     }
     
@@ -145,9 +148,9 @@ public class ChallengeManager : MonoBehaviour
             var json = System.IO.File.ReadAllText($"{Application.persistentDataPath}\\{file}");
             _playerScoreList = JsonUtility.FromJson<ScoreList>(json) ?? new ScoreList();
         }
-        catch (Exception e)
+        catch (FileNotFoundException e)
         {
-            Debug.LogError($"[{gameObject.name}] File reading error: {e}", gameObject);
+            Debug.Log($"[{gameObject.name}] Score file not found. Play the challenge to store your score.");
         }
     }
     

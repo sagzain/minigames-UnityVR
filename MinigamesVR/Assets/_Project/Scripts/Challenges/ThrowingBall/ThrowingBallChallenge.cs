@@ -71,7 +71,7 @@ public class ThrowingBallChallenge : ChallengeManager
     {
         foreach (var go in _ballReferences)
         {
-            Destroy(gameObject);
+            Destroy(go);
         }
         
         _ballReferences.Clear();
