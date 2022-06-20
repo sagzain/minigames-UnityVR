@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using Unity.XR.CoreUtils;
 
 public class ClimbingZoneChallenge : ChallengeManager
 {
@@ -18,6 +19,9 @@ public class ClimbingZoneChallenge : ChallengeManager
         }
         
     }
+    
+    [SerializeField] private XRButtonInteractable xrEndButton;
+    [SerializeField] private Transform spawnPosition; 
     [SerializeField] private GameObject climbingRocks;
     [SerializeField] private TMP_Text watchTime;
     
@@ -32,6 +36,8 @@ public class ClimbingZoneChallenge : ChallengeManager
     private void Start()
     {
         xrStartButton.OnReleasedButton += StartChallenge;
+        xrEndButton.OnReleasedButton += EndChallenge;
+        
         DespawnClimbingRocks();
     }
 
@@ -44,6 +50,12 @@ public class ClimbingZoneChallenge : ChallengeManager
         base.StartChallenge();
         SpawnClimbingRocks();
         StartCoroutine(UpdateWatchTimer());
+    }
+
+    protected override void EndChallenge()
+    {
+        base.EndChallenge();
+        Player.Instance.MovePlayerTo(spawnPosition.position);
     }
 
     private IEnumerator UpdateWatchTimer()
@@ -64,5 +76,11 @@ public class ClimbingZoneChallenge : ChallengeManager
     private void DespawnClimbingRocks()
     {
         climbingRocks.SetActive(false);
+    }
+
+    protected override void DisplayTimeAndPoints(bool value)
+    {
+        base.DisplayTimeAndPoints(value);
+        displayPoints.gameObject.SetActive(false);
     }
 }

@@ -381,4 +381,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 638162329090387035}
-  isPressed: 0
+  buttonDisplacement: {x: 0, y: 0, z: 0}
+  pressedSound: {fileID: 8300000, guid: b583404bf355d5f4ebbda1451c8bda7a, type: 3}

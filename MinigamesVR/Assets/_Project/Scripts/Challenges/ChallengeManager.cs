@@ -21,16 +21,15 @@ public class ChallengeManager : MonoBehaviour
     [Range(0, 120)]
     [SerializeField] private int maxTime;
     
-    private float _currentTime;
-    private int _currentPoints;
-
     [SerializeField] private TMP_Text displayInfo;
     [SerializeField] protected TMP_Text displayTimer;
-    [SerializeField] private TMP_Text displayPoints;
+    [SerializeField] protected TMP_Text displayPoints;
+    [SerializeField] private TMP_Text scoreboard;
     
-    // [SerializeField] private XRChallengeButtons XR_ChallengeButtons;
     [SerializeField] protected XRButtonInteractable xrStartButton;
-    [SerializeField] private TextMeshProUGUI scoreboard;
+    
+    private float _currentTime;
+    private int _currentPoints;
     
     #endregion
     
@@ -38,17 +37,17 @@ public class ChallengeManager : MonoBehaviour
 
     private void Awake()
     {
-        _currentScore.player = "DefaultPlayer";
+        _currentScore.player = Player.Instance.GetPlayerName();
         _currentScore.points = 0;
         _currentScore.time   = .0f;
 
         _currentPoints = 0;
         _currentTime = maxTime;
-
+        
         displayPoints.text = "0 pts";
         
-        ReadScoresFromFile();
-        ShowScoreboard();
+        DisplayTimeAndPoints(false);
+        ReloadScoreboard();
     }
     
     #endregion
@@ -58,6 +57,7 @@ public class ChallengeManager : MonoBehaviour
     protected virtual void StartChallenge()
     {
         StartCoroutine(TimerRoutine());
+        DisplayTimeAndPoints(true);
     }
    
     public void ScorePoints(int points)
@@ -69,6 +69,13 @@ public class ChallengeManager : MonoBehaviour
         displayPoints.text = $"{_currentPoints} pts";
     }
 
+    protected virtual void DisplayTimeAndPoints(bool value)
+    {
+        displayInfo.gameObject.SetActive(!value);
+        displayTimer.gameObject.SetActive(value);
+        displayPoints.gameObject.SetActive(value);
+    }
+    
     private IEnumerator TimerRoutine()
     {
         _currentTime = maxTime;
@@ -87,6 +94,8 @@ public class ChallengeManager : MonoBehaviour
     
     protected virtual void EndChallenge()
     {
+        DisplayTimeAndPoints(false);
+        
         challengeStatus = ChallengeStatusEnum.Completed;
         
         _currentTime = 0;
@@ -95,27 +104,34 @@ public class ChallengeManager : MonoBehaviour
         
         AddScoreToList(_currentScore);
         WriteScoreOnFile();
+        ReloadScoreboard();
+    }
+
+    private void ReloadScoreboard()
+    {
+        ReadScoresFromFile();
+        ShowScoreboard();
     }
     
     private void ShowScoreboard()
     {
+        scoreboard.text = string.Empty;
+        
         if (_playerScoreList.scoreList.Count == 0)
         {
             scoreboard.text += "There are no previous player scores.";
             return;
         }
 
-        scoreboard.text += "<pos=0%><b>Player</b></pos><pos=50%><b>Points</b></pos><pos=75%><b>Time<b></pos>\n\n";
         foreach (var score in _playerScoreList.scoreList)
         {
-            scoreboard.text += $"<pos=0%>{score.player}</pos><pos=50%>{score.points}</pos><pos=75%>{score.time}</pos>\n";
+            scoreboard.text += $"<pos=0%>{score.player}</pos><pos=45%>{score.points}</pos><pos=75%>{score.time}</pos>\n";
         }
     }
     
     private void AddScoreToList(PlayerScore score)
     {
         _playerScoreList.scoreList.Add(score);
-        OnValueChanged_ScoreList();
     }
     
     #endregion
@@ -128,8 +144,6 @@ public class ChallengeManager : MonoBehaviour
         {
             var json = System.IO.File.ReadAllText($"{Application.persistentDataPath}\\{file}");
             _playerScoreList = JsonUtility.FromJson<ScoreList>(json) ?? new ScoreList();
-            
-            Debug.Log($"Lectura {_playerScoreList}, {_playerScoreList.scoreList}");
         }
         catch (Exception e)
         {
@@ -141,7 +155,6 @@ public class ChallengeManager : MonoBehaviour
     {
         try
         {
-            Debug.Log("Escribiendo");
             System.IO.File.WriteAllText($"{Application.persistentDataPath}\\{file}", JsonUtility.ToJson(_playerScoreList));
         }
         catch (Exception e)
@@ -149,16 +162,6 @@ public class ChallengeManager : MonoBehaviour
             Debug.LogError($"[{gameObject.name}] File writing error: {e}", gameObject);
         }
 
-    }
-    
-    #endregion
-    
-    #region Callbacks
-    
-    private void OnValueChanged_ScoreList()
-    {
-        //TODO
-        // Pintar de nuevo el cuadro de los resultados
     }
     
     #endregion

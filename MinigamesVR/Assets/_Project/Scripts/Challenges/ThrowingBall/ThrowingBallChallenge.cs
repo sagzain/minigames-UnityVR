@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
@@ -22,6 +23,8 @@ public class ThrowingBallChallenge : ChallengeManager
     [SerializeField] private GameObject ballPrefab;
     [Range(0, 10)]
     [SerializeField] private int ballQuantity;
+
+    private List<GameObject> _ballReferences;
     
     //TODO
     /*
@@ -34,6 +37,7 @@ public class ThrowingBallChallenge : ChallengeManager
 
     private void Start()
     {
+        _ballReferences = new List<GameObject>();
         xrStartButton.OnReleasedButton += StartChallenge;
     }
 
@@ -44,15 +48,32 @@ public class ThrowingBallChallenge : ChallengeManager
         
         challengeStatus = ChallengeStatusEnum.Started;
         base.StartChallenge();
-        SpawnBalls();
+        GenerateBalls();
     }
 
-    private void SpawnBalls()
+    protected override void EndChallenge()
+    {
+        base.EndChallenge();
+        DestroyBalls();
+    }
+
+    private void GenerateBalls()
     {
         for (int i = 0; i < ballQuantity; i++)
         {
             var go = Instantiate(ballPrefab);
+            _ballReferences.Add(go);
             go.transform.position = spawnPoint.position;
         }
+    }
+
+    private void DestroyBalls()
+    {
+        foreach (var go in _ballReferences)
+        {
+            Destroy(gameObject);
+        }
+        
+        _ballReferences.Clear();
     }
 }

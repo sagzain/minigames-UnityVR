@@ -7,11 +7,12 @@ public class XRButtonInteractable : MonoBehaviour
 {
     [SerializeField] private GameObject button;
     [SerializeField] private Vector3 buttonDisplacement;
-    [SerializeField] bool isPressed = false;
+    [SerializeField] private AudioClip pressedSound;
 
     private Vector3 _originalPosition;
     private AudioSource _audioSource;
     private GameObject _currentPresser;
+    private bool _isPressed = false;
 
     public delegate void PressedButton();
     public event PressedButton OnPressedButton;
@@ -27,17 +28,17 @@ public class XRButtonInteractable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isPressed)
+        if (_isPressed)
             return;
         
-        button.transform.localPosition = new Vector3(0, 0.05f, 0);
+        button.transform.localPosition = buttonDisplacement;
         _currentPresser = other.gameObject;
-        isPressed = true;
-        
-        if (_audioSource)
-            _audioSource.Play();
+        _isPressed = true;
         
         OnPressedButton?.Invoke();
+        
+        if (_audioSource)
+            _audioSource.PlayOneShot(pressedSound);
     }
 
     private void OnTriggerExit(Collider other)
@@ -47,7 +48,7 @@ public class XRButtonInteractable : MonoBehaviour
 
         button.transform.localPosition = _originalPosition;
         _currentPresser = null;
-        isPressed = false;
+        _isPressed = false;
         
         OnReleasedButton?.Invoke();
     }

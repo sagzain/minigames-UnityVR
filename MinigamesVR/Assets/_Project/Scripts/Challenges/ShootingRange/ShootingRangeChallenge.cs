@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -25,6 +26,10 @@ public class ShootingRangeChallenge : ChallengeManager
             return _instance;
         }
     }
+
+    [Header("Magazine Boxes")] 
+    [SerializeField] private GameObject prefabMagazineBox;
+    [SerializeField] private List<Transform> boxLocations;
     
     [Header("Target Options")] 
     [SerializeField] private Transform spawnPoint;
@@ -35,6 +40,8 @@ public class ShootingRangeChallenge : ChallengeManager
     [SerializeField] private AxisRange spawnPosX;
     [SerializeField] private AxisRange spawnPosY;
     [SerializeField] private AxisRange spawnPosZ;
+
+    private List<GameObject> _magazineBoxes;
     
     // TODO
     /*
@@ -48,8 +55,9 @@ public class ShootingRangeChallenge : ChallengeManager
 
     private void Start()
     {
+        _magazineBoxes = new List<GameObject>();
         xrStartButton.OnReleasedButton += StartChallenge; 
-        // StartChallenge();
+        StartChallenge();
     }
     
     protected override void StartChallenge()
@@ -60,6 +68,7 @@ public class ShootingRangeChallenge : ChallengeManager
         challengeStatus = ChallengeStatusEnum.Started;
         base.StartChallenge();
         StartCoroutine(SpawnRoutine());
+        GenerateAmmoBoxes();
     }
 
     private IEnumerator SpawnRoutine()
@@ -82,5 +91,26 @@ public class ShootingRangeChallenge : ChallengeManager
     protected override void EndChallenge()
     {
         base.EndChallenge();
+        DestroyAmmoBoxes();
+    }
+
+    private void GenerateAmmoBoxes()
+    {
+        foreach (var location in boxLocations)
+        {
+            var go = Instantiate(prefabMagazineBox);
+            go.transform.position = location.position;
+            _magazineBoxes.Add(go);
+        }
+    }
+
+    private void DestroyAmmoBoxes()
+    {
+        foreach (var box in _magazineBoxes)
+        {
+            Destroy(box);
+        }
+
+        _magazineBoxes.Clear();
     }
 }
