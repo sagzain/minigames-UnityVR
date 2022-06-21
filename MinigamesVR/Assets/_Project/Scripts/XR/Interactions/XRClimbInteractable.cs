@@ -8,14 +8,11 @@ public class XRClimbInteractable : XRBaseInteractable
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
-
-        if (args.interactorObject is XRDirectInteractor)
-            Debug.Log(args.interactorObject);
+        
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
-        Debug.Log("Exit");
     }
 }

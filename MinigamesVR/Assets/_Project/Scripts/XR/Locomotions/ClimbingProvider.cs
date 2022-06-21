@@ -6,11 +6,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ClimbingProvider : Singleton<LocomotionProvider>
 {
-    [SerializeField] private XRController climbingHand;
+    [SerializeField] private List<XRController> climbingHands;
     
     private void FixedUpdate()
     {
-        if (!climbingHand)
+        if (climbingHands.Count == 0)
             return;
         
         ComputeClimbMovement();
@@ -18,6 +18,11 @@ public class ClimbingProvider : Singleton<LocomotionProvider>
 
     private void ComputeClimbMovement()
     {
-
+        foreach (XRController hand in climbingHands)
+        {
+            // Acumular las velocidades de las manos para luego aplicarlas al transform del Player
+        }
+        
+        Player.Instance.MovePlayerTo(Vector3.zero);
     }
 }

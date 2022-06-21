@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -88,7 +89,7 @@ public class ChallengeManager : MonoBehaviour
             yield return new WaitForSeconds(1);
             _currentTime--;
             
-            if (_currentTime < 0)
+            if (_currentTime == -1)
                 EndChallenge();
         }
     }
@@ -147,6 +148,7 @@ public class ChallengeManager : MonoBehaviour
         {
             var json = System.IO.File.ReadAllText($"{Application.persistentDataPath}\\{file}");
             _playerScoreList = JsonUtility.FromJson<ScoreList>(json) ?? new ScoreList();
+            _playerScoreList.scoreList = _playerScoreList.scoreList.OrderByDescending(player => player.points).ToList();
         }
         catch (FileNotFoundException e)
         {
