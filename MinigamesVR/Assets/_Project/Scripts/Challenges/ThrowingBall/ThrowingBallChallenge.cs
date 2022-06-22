@@ -7,25 +7,26 @@ public class ThrowingBallChallenge : ChallengeManager
     protected static ThrowingBallChallenge _instance;
 
     public static ThrowingBallChallenge Instance
-    {  
+    {
         get
         {
-            if(_instance == null) 
+            if (_instance == null)
             {
-                _instance = FindObjectOfType<ThrowingBallChallenge>(); 
+                _instance = FindObjectOfType<ThrowingBallChallenge>();
             }
+
             return _instance;
         }
     }
 
-    [Header("Ball Options")] 
-    [SerializeField] private Transform spawnPoint;
+    [Header("Ball Options")] [SerializeField]
+    private Transform spawnPoint;
+
     [SerializeField] private GameObject ballPrefab;
-    [Range(0, 10)]
-    [SerializeField] private int ballQuantity;
+    [Range(0, 10)] [SerializeField] private int ballQuantity;
 
     private List<GameObject> _ballReferences;
-    
+
     //TODO
     /*
      * - Instanciar de forma aleatoria prefabs de monedas
@@ -43,9 +44,9 @@ public class ThrowingBallChallenge : ChallengeManager
 
     protected override void StartChallenge()
     {
-        if(challengeStatus == ChallengeStatusEnum.Started)
+        if (challengeStatus == ChallengeStatusEnum.Started)
             return;
-        
+
         challengeStatus = ChallengeStatusEnum.Started;
         base.StartChallenge();
         GenerateBalls();
@@ -73,7 +74,7 @@ public class ThrowingBallChallenge : ChallengeManager
         {
             Destroy(go);
         }
-        
+
         _ballReferences.Clear();
     }
 }

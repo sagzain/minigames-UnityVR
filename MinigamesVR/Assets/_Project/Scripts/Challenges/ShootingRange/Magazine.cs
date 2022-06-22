@@ -7,17 +7,15 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Magazine : MonoBehaviour
 {
     #region Vars
-    
-    [Range(0, 10)] 
-    [SerializeField] private int bullets;
-    [Range(2, 10)] 
-    [SerializeField] private int timeToDespawn;
+
+    [Range(0, 10)] [SerializeField] private int bullets;
+    [Range(2, 10)] [SerializeField] private int timeToDespawn;
 
     private Rigidbody magazineRB;
     private XRBaseInteractable _interactable;
-    
-    #endregion 
-    
+
+    #endregion
+
     #region Unity
 
     void Awake()
@@ -27,7 +25,7 @@ public class Magazine : MonoBehaviour
 
         magazineRB = GetComponent<Rigidbody>();
     }
-    
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.collider.gameObject.name == "Floor")
@@ -35,13 +33,13 @@ public class Magazine : MonoBehaviour
             StartCoroutine(DespawnMagazine());
         }
     }
-    
+
     #endregion
-    
+
     #region Methods
 
     public bool IsEmpty() => bullets <= 0;
-    
+
     public void ReduceBullet()
     {
         bullets--;
@@ -52,7 +50,7 @@ public class Magazine : MonoBehaviour
         transform.SetParent(parent);
         magazineRB.isKinematic = true;
     }
-    
+
     public void DropMagazine()
     {
         transform.SetParent(null);
@@ -64,15 +62,15 @@ public class Magazine : MonoBehaviour
         yield return transform.DOScale(Vector3.zero, timeToDespawn).WaitForCompletion();
         Destroy(gameObject);
     }
-    
+
     #endregion
-    
+
     #region Callbacks
-    
+
     private void OnSelectExit_Interactable(SelectExitEventArgs selectExitEventArgs)
     {
         DropMagazine();
     }
-    
+
     #endregion
 }

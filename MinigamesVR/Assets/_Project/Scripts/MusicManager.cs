@@ -9,13 +9,12 @@ public class MusicManager : MonoBehaviour
 
     private void Start()
     {
-        if(music)
+        if (music)
             speakers?.ForEach(speaker =>
             {
                 speaker.clip = music;
                 speaker.loop = true;
                 speaker.Play();
             });
-        
     }
 }

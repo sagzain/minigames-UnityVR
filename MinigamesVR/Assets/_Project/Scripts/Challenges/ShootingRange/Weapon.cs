@@ -14,21 +14,20 @@ public struct WeaponAudios
 public class Weapon : MonoBehaviour
 {
     #region Vars
-    
+
     [SerializeField] private Transform output;
     [SerializeField] private GameObject shotPrefab;
     [SerializeField] private XRSocketInteractor ammoSocket;
-    
-    [Header("Sounds")] 
-    [SerializeField] private WeaponAudios audios;
+
+    [Header("Sounds")] [SerializeField] private WeaponAudios audios;
 
     private bool _canShoot;
     private AudioSource _audioSource;
     private Magazine _currentMagazine;
     private XRBaseInteractable _interactable;
-    
-    #endregion 
-    
+
+    #endregion
+
     #region Unity
 
     void Awake()
@@ -36,24 +35,30 @@ public class Weapon : MonoBehaviour
         _canShoot = true;
         _audioSource = GetComponent<AudioSource>();
 
-        try { _currentMagazine = ammoSocket.firstInteractableSelected.transform.GetComponent<Magazine>(); }
-        catch { Debug.Log($"[{gameObject.name}] Socket has no magazine."); }
-        
+        try
+        {
+            _currentMagazine = ammoSocket.firstInteractableSelected.transform.GetComponent<Magazine>();
+        }
+        catch
+        {
+            Debug.Log($"[{gameObject.name}] Socket has no magazine.");
+        }
+
         ammoSocket.selectEntered.AddListener(OnSelectEnter_SocketInteractor);
         ammoSocket.selectExited.AddListener(OnSelectExit_SocketInteractor);
 
         _interactable = GetComponent<XRBaseInteractable>();
         _interactable.activated.AddListener(OnActivate_Interactable);
     }
-    
+
     #endregion
-    
+
     #region Methods
 
     public void ShootWeapon()
     {
         _canShoot = _currentMagazine != null && !_currentMagazine.IsEmpty();
-        
+
         if (!_canShoot)
         {
             PlaySound(audios.emptySound);
@@ -68,7 +73,7 @@ public class Weapon : MonoBehaviour
 
     private void PlaySound(AudioClip clip)
     {
-        if(clip)
+        if (clip)
             _audioSource.PlayOneShot(clip);
     }
 
@@ -76,7 +81,7 @@ public class Weapon : MonoBehaviour
     {
         _currentMagazine = magazine;
         _currentMagazine.AttachMagazine(transform);
-        
+
         PlaySound(audios.reloadSound);
     }
 
@@ -84,7 +89,7 @@ public class Weapon : MonoBehaviour
     {
         _currentMagazine.DropMagazine();
         _currentMagazine = null;
-        
+
         PlaySound(audios.reloadSound);
     }
 

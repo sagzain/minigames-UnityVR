@@ -1,30 +1,29 @@
 using UnityEditor;
-
 using UnityEngine;
 
 namespace Samples
 {
     /// <summary>
-    /// Simple custom editor used to show how to enable custom UI for XR Management
-    /// configuraton data.
+    ///     Simple custom editor used to show how to enable custom UI for XR Management
+    ///     configuraton data.
     /// </summary>
     [CustomEditor(typeof(SampleSettings))]
     public class SampleSettingsEditor : Editor
     {
-        static string k_RequiresProperty = "m_RequiresItem";
-        static string k_RuntimeToggleProperty  = "m_RuntimeToggle";
+        private static readonly string k_RequiresProperty = "m_RequiresItem";
+        private static readonly string k_RuntimeToggleProperty = "m_RuntimeToggle";
 
-        static GUIContent k_ShowBuildSettingsLabel = new GUIContent("Build Settings");
-        static GUIContent k_RequiresLabel = new GUIContent("Item Requirement");
+        private static readonly GUIContent k_ShowBuildSettingsLabel = new GUIContent("Build Settings");
+        private static readonly GUIContent k_RequiresLabel = new GUIContent("Item Requirement");
 
-        static GUIContent k_ShowRuntimeSettingsLabel = new GUIContent("Runtime Settings");
-        static GUIContent k_RuntimeToggleLabel = new GUIContent("Should I stay or should I go?");
+        private static readonly GUIContent k_ShowRuntimeSettingsLabel = new GUIContent("Runtime Settings");
+        private static readonly GUIContent k_RuntimeToggleLabel = new GUIContent("Should I stay or should I go?");
 
-        bool m_ShowBuildSettings = true;
-        bool m_ShowRuntimeSettings = true;
+        private SerializedProperty m_RequiesItemProperty;
+        private SerializedProperty m_RuntimeToggleProperty;
 
-        SerializedProperty m_RequiesItemProperty;
-        SerializedProperty m_RuntimeToggleProperty;
+        private bool m_ShowBuildSettings = true;
+        private bool m_ShowRuntimeSettings = true;
 
         /// <summary>Override of Editor callback.</summary>
         public override void OnInspectorGUI()
@@ -32,8 +31,10 @@ namespace Samples
             if (serializedObject == null || serializedObject.targetObject == null)
                 return;
 
-            if (m_RequiesItemProperty == null) m_RequiesItemProperty = serializedObject.FindProperty(k_RequiresProperty);
-            if (m_RuntimeToggleProperty == null) m_RuntimeToggleProperty = serializedObject.FindProperty(k_RuntimeToggleProperty);
+            if (m_RequiesItemProperty == null)
+                m_RequiesItemProperty = serializedObject.FindProperty(k_RequiresProperty);
+            if (m_RuntimeToggleProperty == null)
+                m_RuntimeToggleProperty = serializedObject.FindProperty(k_RuntimeToggleProperty);
 
             serializedObject.Update();
             m_ShowBuildSettings = EditorGUILayout.Foldout(m_ShowBuildSettings, k_ShowBuildSettingsLabel);

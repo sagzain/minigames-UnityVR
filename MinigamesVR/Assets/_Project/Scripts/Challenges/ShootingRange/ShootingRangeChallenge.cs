@@ -17,33 +17,35 @@ public class ShootingRangeChallenge : ChallengeManager
     protected static ShootingRangeChallenge _instance;
 
     public static ShootingRangeChallenge Instance
-    {  
+    {
         get
         {
-            if(_instance == null) 
+            if (_instance == null)
             {
-                _instance = FindObjectOfType<ShootingRangeChallenge>(); 
+                _instance = FindObjectOfType<ShootingRangeChallenge>();
             }
+
             return _instance;
         }
     }
 
-    [Header("Magazine Boxes")] 
-    [SerializeField] private GameObject prefabMagazineBox;
+    [Header("Magazine Boxes")] [SerializeField]
+    private GameObject prefabMagazineBox;
+
     [SerializeField] private List<Transform> boxLocations;
-    
-    [Header("Target Options")] 
-    [SerializeField] private Transform spawnPoint;
+
+    [Header("Target Options")] [SerializeField]
+    private Transform spawnPoint;
+
     [SerializeField] private GameObject targetPrefab;
-    [Range(0, 5f)]
-    [SerializeField] private float spawnFrequency;
+    [Range(0, 5f)] [SerializeField] private float spawnFrequency;
 
     [SerializeField] private AxisRange spawnPosX;
     [SerializeField] private AxisRange spawnPosY;
     [SerializeField] private AxisRange spawnPosZ;
 
     private List<GameObject> _magazineBoxes;
-    
+
     // TODO
     /*
      *  - Instanciar pistolas al pulsar boton Start
@@ -57,14 +59,14 @@ public class ShootingRangeChallenge : ChallengeManager
     private void Start()
     {
         _magazineBoxes = new List<GameObject>();
-        xrStartButton.OnReleasedButton += StartChallenge; 
+        xrStartButton.OnReleasedButton += StartChallenge;
     }
-    
+
     protected override void StartChallenge()
     {
-        if(challengeStatus == ChallengeStatusEnum.Started)
+        if (challengeStatus == ChallengeStatusEnum.Started)
             return;
-        
+
         challengeStatus = ChallengeStatusEnum.Started;
         base.StartChallenge();
         StartCoroutine(SpawnRoutine());
@@ -76,13 +78,13 @@ public class ShootingRangeChallenge : ChallengeManager
         while (challengeStatus == ChallengeStatusEnum.Started)
         {
             yield return new WaitForSeconds(spawnFrequency);
-            
+
             var posX = Random.Range(spawnPosX.minValue, spawnPosX.maxValue);
             var posY = Random.Range(spawnPosY.minValue, spawnPosY.maxValue);
             var posZ = Random.Range(spawnPosZ.minValue, spawnPosZ.maxValue);
 
             var pos = new Vector3(posX, posY, posZ);
-;
+            ;
             var go = Instantiate(targetPrefab, spawnPoint);
             go.transform.localPosition = pos;
         }
@@ -112,6 +114,7 @@ public class ShootingRangeChallenge : ChallengeManager
             {
                 Destroy(magazine);
             }
+
             Destroy(box);
         }
 

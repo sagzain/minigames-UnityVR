@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
 {
-    [Range(0f,50f)]
-    [SerializeField] protected int speed;
-    [Range(1, 20)]
-    [SerializeField] protected int destroyTime;
+    [Range(0f, 50f)] [SerializeField] protected int speed;
+    [Range(1, 20)] [SerializeField] protected int destroyTime;
 
     private void Start()
     {
@@ -32,11 +30,10 @@ public class BulletBehaviour : MonoBehaviour
 
         if (go.layer != 9)
             return;
-        
+
         Destroy(gameObject);
-        
+
         // TODO 
         // Instantiate vfx & sfx
-
     }
 }

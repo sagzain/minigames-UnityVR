@@ -19,7 +19,7 @@ public class PhysicalHand : MonoBehaviour
         _followTarget = _followObject.transform;
         _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        _rigidbody.interpolation  = RigidbodyInterpolation.Interpolate;
+        _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
         _rigidbody.mass = 20f;
 
         _rigidbody.position = _followTarget.position;
@@ -33,7 +33,6 @@ public class PhysicalHand : MonoBehaviour
 
     void PhysicalMovement()
     {
-
         // // Position 
         var distance = Vector3.Distance(_followTarget.position, transform.position);
         _rigidbody.velocity = (_followTarget.position - transform.position).normalized * (_followSpeed * distance);

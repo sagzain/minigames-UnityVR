@@ -8,23 +8,23 @@ public class ClimbingZoneChallenge : ChallengeManager
     protected static ClimbingZoneChallenge _instance;
 
     public static ClimbingZoneChallenge Instance
-    {  
+    {
         get
         {
-            if(_instance == null) 
+            if (_instance == null)
             {
-                _instance = FindObjectOfType<ClimbingZoneChallenge>(); 
+                _instance = FindObjectOfType<ClimbingZoneChallenge>();
             }
+
             return _instance;
         }
-        
     }
-    
+
     [SerializeField] private XRButtonInteractable xrEndButton;
-    [SerializeField] private Transform spawnPosition; 
+    [SerializeField] private Transform spawnPosition;
     [SerializeField] private GameObject climbingRocks;
     [SerializeField] private TMP_Text watchTime;
-    
+
     //TODO
     /*
      * - Almacenar los prefabs de las rocas
@@ -37,15 +37,15 @@ public class ClimbingZoneChallenge : ChallengeManager
     {
         xrStartButton.OnReleasedButton += StartChallenge;
         xrEndButton.OnReleasedButton += EndChallenge;
-        
+
         DespawnClimbingRocks();
     }
 
     protected override void StartChallenge()
     {
-        if(challengeStatus == ChallengeStatusEnum.Started)
+        if (challengeStatus == ChallengeStatusEnum.Started)
             return;
-        
+
         challengeStatus = ChallengeStatusEnum.Started;
         base.StartChallenge();
         SpawnClimbingRocks();
@@ -56,9 +56,12 @@ public class ClimbingZoneChallenge : ChallengeManager
     {
         if (challengeStatus != ChallengeStatusEnum.Started)
             return;
-        
+
         base.EndChallenge();
-        Player.Instance.MovePlayerTo(spawnPosition.position);
+
+        var newPos = spawnPosition.position +  Vector3.up * 1.5f;
+        Player.Instance.transform.position = newPos;
+        DespawnClimbingRocks();
     }
 
     private IEnumerator UpdateWatchTimer()
@@ -69,7 +72,7 @@ public class ClimbingZoneChallenge : ChallengeManager
             yield return new WaitForSeconds(1);
         }
     }
-    
+
     private void SpawnClimbingRocks()
     {
         climbingRocks.SetActive(true);

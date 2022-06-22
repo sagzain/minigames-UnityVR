@@ -1,39 +1,30 @@
-using System;
-
 using UnityEditor;
 using UnityEditor.XR.Management;
-
 using UnityEngine;
 
 namespace Samples
 {
     /// <summary>
-    /// Sample loader UI demonstrating how to provide your own loader selection UI for the
-    /// loader selection list.
+    ///     Sample loader UI demonstrating how to provide your own loader selection UI for the
+    ///     loader selection list.
     /// </summary>
     [XRCustomLoaderUI("Samples.SampleLoader", BuildTargetGroup.Standalone)]
     public class SampleStandaloneLoaderUI : IXRCustomLoaderUI
     {
-        static readonly string[] features = new string[]{
+        private static readonly string[] features =
+        {
             "Feature One",
             "Feature Two",
             "Feature Three"
         };
 
-        struct Content
-        {
-            public static readonly GUIContent k_LoaderName = new GUIContent("Sample Loader One Custom <SAMPLE ONLY YOU MUST REIMPLEMENT>");
-            public static readonly GUIContent k_Download = new GUIContent("Download");
-            public static readonly GUIContent k_WarningIcon = EditorGUIUtility.IconContent("console.warnicon.sml");
-        }
-
-        float renderLineHeight = 0;
+        private float renderLineHeight;
 
         /// <inheritdoc />
         public bool IsLoaderEnabled { get; set; }
 
         /// <inheritdoc />
-        public string[] IncompatibleLoaders => new string[] { "UnityEngine.XR.WindowsMR.WindowsMRLoader" };
+        public string[] IncompatibleLoaders => new[] { "UnityEngine.XR.WindowsMR.WindowsMRLoader" };
 
         /// <inheritdoc />
         public float RequiredRenderHeight { get; private set; }
@@ -44,10 +35,7 @@ namespace Samples
             renderLineHeight = height;
             RequiredRenderHeight = height;
 
-            if (IsLoaderEnabled)
-            {
-                RequiredRenderHeight += features.Length * height;
-            }
+            if (IsLoaderEnabled) RequiredRenderHeight += features.Length * height;
         }
 
         /// <inheritdoc />
@@ -68,7 +56,8 @@ namespace Samples
             imageRect.xMin = labelRect.xMax + 1;
             imageRect.width = size.y;
             imageRect.height = renderLineHeight;
-            var iconWithTooltip = new GUIContent("", Content.k_WarningIcon.image, "Warning: This is a sample to show how to draw a custom icon with a tooltip!");
+            var iconWithTooltip = new GUIContent("", Content.k_WarningIcon.image,
+                "Warning: This is a sample to show how to draw a custom icon with a tooltip!");
             EditorGUI.LabelField(imageRect, iconWithTooltip);
 
             if (IsLoaderEnabled)
@@ -89,15 +78,23 @@ namespace Samples
                     buttonRect.xMin = featureLabelRect.xMax + 1;
                     buttonRect.width = buttonSize.x;
                     if (GUI.Button(buttonRect, Content.k_Download))
-                    {
                         Debug.Log($"{feature} download button pressed. Do something here!");
-                    }
 
                     featureRect.yMin += renderLineHeight;
                     featureRect.height = renderLineHeight;
                 }
+
                 EditorGUI.indentLevel--;
             }
+        }
+
+        private struct Content
+        {
+            public static readonly GUIContent k_LoaderName =
+                new GUIContent("Sample Loader One Custom <SAMPLE ONLY YOU MUST REIMPLEMENT>");
+
+            public static readonly GUIContent k_Download = new GUIContent("Download");
+            public static readonly GUIContent k_WarningIcon = EditorGUIUtility.IconContent("console.warnicon.sml");
         }
     }
 }

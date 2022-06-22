@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class HandController : MonoBehaviour
 {
     [SerializeField] private Hand _hand;
-   
+
     private ActionBasedController _controller;
 
     void Start()

@@ -15,9 +15,11 @@ public class XRButtonInteractable : MonoBehaviour
     private bool _isPressed = false;
 
     public delegate void PressedButton();
+
     public event PressedButton OnPressedButton;
 
     public delegate void ReleasedButton();
+
     public event ReleasedButton OnReleasedButton;
 
     private void Start()
@@ -30,13 +32,13 @@ public class XRButtonInteractable : MonoBehaviour
     {
         if (_isPressed)
             return;
-        
+
         button.transform.localPosition = buttonDisplacement;
         _currentPresser = other.gameObject;
         _isPressed = true;
-        
+
         OnPressedButton?.Invoke();
-        
+
         if (_audioSource)
             _audioSource.PlayOneShot(pressedSound);
     }
@@ -49,7 +51,7 @@ public class XRButtonInteractable : MonoBehaviour
         button.transform.localPosition = _originalPosition;
         _currentPresser = null;
         _isPressed = false;
-        
+
         OnReleasedButton?.Invoke();
     }
 }
